@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import generics, permissions, renderers, viewsets
 from rest_framework.decorators import action, api_view
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
@@ -67,6 +68,7 @@ class SnippetViewSet(viewsets.ModelViewSet):
     """
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
+    parser_classes = (MultiPartParser, FormParser)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,
                           IsOwnerOrReadOnly]
     action_serializers = {

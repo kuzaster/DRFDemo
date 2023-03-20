@@ -1,9 +1,11 @@
+from django.conf.urls.static import static
 from django.urls import include, path
 from rest_framework import renderers
 from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from snippets import views
+from tutorial import settings
 
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
@@ -14,6 +16,8 @@ router.register(r'users', views.UserViewSet, basename="user")
 urlpatterns = [
     path('', include(router.urls)),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Url patterns + ViewSets
 # snippet_list = SnippetViewSet.as_view({

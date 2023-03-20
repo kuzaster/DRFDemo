@@ -9,6 +9,10 @@ LANGUAGE_CHOICES = sorted([(item[1][0], item[0]) for item in LEXERS])
 STYLE_CHOICES = sorted([(item, item) for item in get_all_styles()])
 
 
+def upload_to(instance, filename):
+    return 'images/{filename}'.format(filename=filename)
+
+
 class Snippet(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default="")
@@ -22,6 +26,7 @@ class Snippet(models.Model):
         "auth.User", related_name="snippets", on_delete=models.CASCADE
     )
     highlighted = models.TextField()
+    code_screen = models.ImageField(upload_to=upload_to, blank=True, null=True)
 
     class Meta:
         ordering = ("created",)

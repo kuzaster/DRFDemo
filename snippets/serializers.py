@@ -30,6 +30,7 @@ class SnippetSerializer(SnippetBaseSerializer):
             "linenos",
             "language",
             "style",
+            "code_screen",
             "owner",
         )
 
